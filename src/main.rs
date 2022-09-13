@@ -1,3 +1,8 @@
+use http::request::Request;
+use server::Server;
+
+mod server;
+
 fn main() {
 
     // let get = Method::GET("abcd".to_string());
@@ -10,42 +15,30 @@ fn main() {
 
 }
 
-pub struct Server {
+mod http {
 
-    addr: String,
-
-}
-
-    
-
-impl Server {
-    pub fn new(addr: String) -> Self {
-        Self {
-            addr,
+    pub mod request {
+        use super::method::Method;
+        pub struct Request {
+            path: String,
+            query_string: Option<String>,
+            method: Method,
         }
     }
-    
-    pub fn run(&self) {
-       println!("Listening on {}", self.addr);
+
+    pub mod method {
+        pub enum Method {
+            GET,
+            DELETE,
+            // GET(String),
+            // DELETE(u64),
+            POST,
+            PUT,
+            HEAD,
+            CONNECT,
+            OPTIONS,
+            TRACE,
+            PATCH,
+        }
     }
-}
-
-struct Request {
-    path: String,
-    query_string: Option<String>,
-    method: Method,
-}
-
-enum Method {
-    GET,
-    DELETE,
-    // GET(String),
-    // DELETE(u64),
-    POST,
-    PUT,
-    HEAD,
-    CONNECT,
-    OPTIONS,
-    TRACE,
-    PATCH,
 }
