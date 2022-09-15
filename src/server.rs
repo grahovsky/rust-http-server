@@ -17,12 +17,10 @@ impl Server {
         let listener = TcpListener::bind(&self.addr).unwrap();
 
         'outer: loop {
-
-            // loop {
-            //     break 'outer;
-            // }
-
+            listener.accept();
         }
+
+        // let tup = (5, listener, "some");
 
     }
 }
