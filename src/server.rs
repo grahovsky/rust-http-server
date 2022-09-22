@@ -17,15 +17,18 @@ impl Server {
         let listener = TcpListener::bind(&self.addr).unwrap();
 
         'outer: loop {
-
             match listener.accept() {
                 Ok((mut stream, addr)) => {
                     let mut buffer = [0; 1024];
-                    stream.read(&mut buffer);
-                },
-                Err(e) => println!("Failed to establish a connection {}", e),
+                    match stream.read(&mut buffer) {
+                        Ok(_) => {
+                            println!("Received a request: {}", String::from_utf8_lossy(&buffer));
+                        }
+                        Err(e) => println!("Failed to read from connections: {}", e)
+                    };
+                }
+                Err(e) => println!("Failed to establish a connection {}", e)
             };
-
         }
         
     }
